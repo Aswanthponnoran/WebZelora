@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporting and Response</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000;
+    --card: #161616;
+    --accent: #9fe32b;
+    --text: #e8e8e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--bg); overflow: hidden; }
+
+  /* Fixed 1920x961 stage, scaled to fit any screen */
+  .stage {
+    position: absolute; top: 50%; left: 50%;
+    width: 1920px; height: 961px;
+    transform-origin: center center;
+    background: var(--bg);
+    font-family: "Chakra Petch", sans-serif;
+  }
+
+  /* Logo */
+  .logo {
+    position: absolute; left: 108px; top: 106px;
+    display: flex; align-items: center; gap: 10px;
+    color: #fff; font-size: 21px; letter-spacing: .5px;
+  }
+  .logo svg { width: 30px; height: 30px; fill: var(--accent); }
+
+  /* Title */
+  h1 {
+    position: absolute; left: 0; right: 0; top: 68px;
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+    font-weight: 700;
+    font-size: 108px; line-height: 92px;
+    color: var(--accent);
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(159,227,43,.9), 0 0 30px rgba(159,227,43,.55), 0 0 60px rgba(159,227,43,.35);
+  }
+
+  /* Cards */
+  .card {
+    position: absolute;
+    background: var(--card);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .card h2 {
+    font-family: "Orbitron", sans-serif;
+    font-weight: 700;
+    font-size: 25px; line-height: 28px;
+    color: var(--accent);
+  }
+  .card p {
+    font-weight: 300;
+    font-size: 19.5px; line-height: 21.5px;
+    color: var(--text);
+  }
+  .c1 { left: 218px;  top: 296px; width: 427px; height: 501px; }
+  .c2 { left: 734px;  top: 339px; width: 439px; height: 494px; }
+  .c3 { left: 1262px; top: 296px; width: 439px; height: 501px; }
+
+  .c1 h2 { margin-top: 58px; }
+  .c1 p  { margin-top: 42px; }
+  .c2 h2 { margin-top: 70px; }
+  .c2 p  { margin-top: 62px; font-size: 20.5px; line-height: 22px; }
+  .c3 h2 { margin-top: 58px; }
+  .c3 p  { margin-top: 46px; font-size: 20.5px; line-height: 22px; }
+
+  /* Speed-line decorations */
+  .lines { position: absolute; width: 91px; height: 40px; }
+  .lines i {
+    position: absolute; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, rgba(159,227,43,0), var(--accent));
+  }
+  .lines.left  { left: 108px;  top: 276px; }
+  .lines.right { left: 1722px; top: 296px; transform: scaleX(-1); }
+  .lines i:nth-child(1) { top: 0;    left: 0;  width: 58px; }
+  .lines i:nth-child(2) { top: 10px; left: 0;  width: 70px; }
+  .lines i:nth-child(3) { top: 20px; left: 0;  width: 50px; }
+  .lines i:nth-child(4) { top: 31px; left: 0;  width: 91px; }
+</style>
+</head>
+<body>
+  <main class="stage" id="stage">
+
+    <div class="logo">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M10 2h4v6.3l5.5-3.2 2 3.5-5.5 3.2 5.5 3.2-2 3.5-5.5-3.2V22h-4v-6.3l-5.5 3.2-2-3.5 5.5-3.2-5.5-3.2 2-3.5L10 8.3z"/>
+      </svg>
+      <span>web zelora</span>
+    </div>
+
+    <div class="lines left"><i></i><i></i><i></i><i></i></div>
+    <div class="lines right"><i></i><i></i><i></i><i></i></div>
+
+    <h1>Reporting and<br>Response</h1>
+
+    <section class="card c1">
+      <h2>Why early reporting<br>is critical</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.</p>
+    </section>
+
+    <section class="card c2">
+      <h2>How to report<br>suspicious activity in<br>your organization</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.</p>
+    </section>
+
+    <section class="card c3">
+      <h2>Role of incident<br>response teams</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.</p>
+    </section>
+
+  </main>
+
+<script>
+  // Scale the 1920x961 slide to fit the window
+  const stage = document.getElementById('stage');
+  function fit() {
+    const s = Math.min(innerWidth / 1920, innerHeight / 961);
+    stage.style.transform = `translate(-50%, -50%) scale(${s})`;
+  }
+  addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>
