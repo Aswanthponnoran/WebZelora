@@ -1,0 +1,3531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Web Zelora | Web Development & Digital Marketing</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+
+    <style>
+
+        /* =========================================================
+           ROOT
+        ========================================================= */
+
+        :root {
+            --black: #050505;
+            --black-2: #0a0a0a;
+            --green: #8cff00;
+            --green-2: #45ff00;
+            --white: #ffffff;
+            --gray: #9b9b9b;
+            --dark-gray: #161616;
+            --border: rgba(255,255,255,.10);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: auto;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        ::selection {
+            background: var(--green);
+            color: #000;
+        }
+
+
+        /* =========================================================
+           CUSTOM CURSOR
+        ========================================================= */
+
+        .cursor {
+            position: fixed;
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--green);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition:
+                width .25s ease,
+                height .25s ease,
+                background .25s ease;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: var(--green);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        body.cursor-hover .cursor {
+            width: 45px;
+            height: 45px;
+            background: rgba(140,255,0,.08);
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(5,5,5,.72);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+        .navbar-brand {
+            font-family: "Orbitron", sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand span {
+            color: var(--green);
+        }
+
+        .navbar-nav {
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: #ddd !important;
+            font-size: 14px;
+            position: relative;
+            transition: .3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--green) !important;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green);
+            transform: translateX(-50%);
+            transition: .3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+
+        /* =========================================================
+           BUTTON
+        ========================================================= */
+
+        .btn-green {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 50px;
+            background: var(--green);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            transition:
+                transform .25s ease,
+                background .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .btn-green:hover {
+            transform: translateY(-4px);
+            background: #b0ff50;
+            color: #000;
+            box-shadow: 0 15px 40px rgba(140,255,0,.22);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 27px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,.2);
+            color: white;
+            font-weight: 600;
+            transition:
+                transform .25s ease,
+                border-color .25s ease,
+                background .25s ease;
+        }
+
+        .btn-outline:hover {
+            transform: translateY(-4px);
+            border-color: var(--green);
+            background: rgba(140,255,0,.06);
+            color: white;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-top: 130px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(140,255,0,.08);
+            filter: blur(130px);
+            border-radius: 50%;
+            top: 10%;
+            left: 25%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border: 1px solid rgba(140,255,0,.25);
+            background: rgba(140,255,0,.04);
+            border-radius: 50px;
+            color: var(--green);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 15px var(--green);
+        }
+
+        .hero h1 {
+            font-family: "Poppins", sans-serif;
+            font-size: clamp(45px, 6vw, 85px);
+            line-height: .98;
+            font-weight: 800;
+            letter-spacing: -4px;
+            max-width: 850px;
+        }
+
+        .hero h1 span {
+            color: var(--green);
+        }
+
+        .hero-description {
+            max-width: 650px;
+            color: var(--gray);
+            font-size: 18px;
+            line-height: 1.8;
+            margin-top: 25px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+
+        /* =========================================================
+           HERO DEVICE
+        ========================================================= */
+
+        .hero-visual {
+            position: relative;
+            height: 550px;
+            margin-top: 30px;
+        }
+
+        .laptop {
+            position: absolute;
+            width: 560px;
+            height: 350px;
+            right: 0;
+            top: 50px;
+            border-radius: 20px;
+            border: 8px solid #292929;
+            background: #101010;
+            box-shadow:
+                0 50px 100px rgba(0,0,0,.6),
+                0 0 60px rgba(140,255,0,.07);
+            transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+        }
+
+        .laptop-screen {
+            height: 100%;
+            padding: 22px;
+            border-radius: 10px;
+            background:
+                linear-gradient(135deg, #111, #182014);
+            overflow: hidden;
+        }
+
+        .screen-bar {
+            display: flex;
+            gap: 7px;
+            margin-bottom: 20px;
+        }
+
+        .screen-bar i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #555;
+        }
+
+        .screen-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .screen-card {
+            height: 100px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.06);
+            padding: 15px;
+        }
+
+        .screen-line {
+            width: 70%;
+            height: 7px;
+            background: var(--green);
+            opacity: .7;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .screen-line.small {
+            width: 45%;
+            opacity: .25;
+        }
+
+        .phone {
+            position: absolute;
+            width: 150px;
+            height: 300px;
+            right: 30px;
+            bottom: 50px;
+            border: 7px solid #272727;
+            border-radius: 28px;
+            background: #0d0d0d;
+            z-index: 5;
+            box-shadow: 0 30px 80px rgba(0,0,0,.6);
+            transform: rotate(8deg);
+        }
+
+        .phone-screen {
+            margin: 8px;
+            height: calc(100% - 16px);
+            border-radius: 18px;
+            background: linear-gradient(160deg,#131313,#26351f);
+            padding: 15px;
+        }
+
+        .phone-screen .screen-line {
+            width: 100%;
+            height: 6px;
+        }
+
+        .phone-screen .screen-card {
+            height: 60px;
+            margin-top: 10px;
+        }
+
+        .float-badge {
+            position: absolute;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: rgba(20,20,20,.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,.1);
+            font-size: 12px;
+            z-index: 8;
+        }
+
+        .badge-1 {
+            top: 40px;
+            left: 20px;
+        }
+
+        .badge-2 {
+            bottom: 80px;
+            left: 50px;
+        }
+
+        .badge-3 {
+            top: 150px;
+            right: -20px;
+        }
+
+        .float-badge strong {
+            color: var(--green);
+            display: block;
+            font-size: 18px;
+        }
+
+
+        /* =========================================================
+           DOT CANVAS
+        ========================================================= */
+
+        #heroCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: .55;
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+
+        section {
+            position: relative;
+            padding: 120px 0;
+        }
+
+        .section-label {
+            color: var(--green);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: "Poppins", sans-serif;
+            font-size: clamp(38px,5vw,65px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .section-description {
+            color: var(--gray);
+            max-width: 650px;
+            line-height: 1.8;
+            margin-top: 20px;
+        }
+
+
+        /* =========================================================
+           REPORTING SLIDE
+        ========================================================= */
+
+        .reporting-section {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(140,255,0,.07), transparent 30%),
+                #080808;
+            overflow: hidden;
+        }
+
+        .reporting-section::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .reporting-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .reporting-title {
+            font-family: "Orbitron", sans-serif;
+            font-size: clamp(40px,7vw,100px);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .reporting-title span {
+            color: var(--green);
+        }
+
+        .report-card {
+            height: 260px;
+            padding: 35px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 25px;
+            background: rgba(255,255,255,.025);
+            backdrop-filter: blur(12px);
+            transition: .4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report-card::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: var(--green);
+            opacity: .05;
+            border-radius: 50%;
+            right: -70px;
+            bottom: -70px;
+        }
+
+        .report-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(140,255,0,.35);
+            box-shadow: 0 25px 80px rgba(0,0,0,.4);
+        }
+
+        .report-number {
+            font-family: "Orbitron";
+            font-size: 12px;
+            color: var(--green);
+        }
+
+        .report-card h3 {
+            margin-top: 30px;
+            font-size: 23px;
+        }
+
+        .report-card p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+
+        /* =========================================================
+           SERVICES
+        ========================================================= */
+
+        .services {
+            background: #080808;
+        }
+
+        .service-card {
+            height: 100%;
+            min-height: 300px;
+            padding: 35px;
+            border-radius: 25px;
+            border: 1px solid var(--border);
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,.045),
+                rgba(255,255,255,.015)
+            );
+            position: relative;
+            overflow: hidden;
+            transition: border-color .4s ease;
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: var(--green);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0;
+            right: -100px;
+            bottom: -100px;
+            transition: .5s ease;
+        }
+
+        .service-card:hover {
+            border-color: rgba(140,255,0,.4);
+        }
+
+        .service-card:hover::before {
+            opacity: .12;
+        }
+
+        .service-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(140,255,0,.1);
+            border: 1px solid rgba(140,255,0,.15);
+            color: var(--green);
+            font-size: 25px;
+            margin-bottom: 30px;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .service-arrow {
+            position: absolute;
+            right: 30px;
+            bottom: 25px;
+            color: var(--green);
+            font-size: 20px;
+        }
+
+
+        /* =========================================================
+           IMPACT
+        ========================================================= */
+
+        .impact {
+            background: #050505;
+        }
+
+        .stat {
+            padding: 35px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-family: "Orbitron";
+            font-size: clamp(45px,6vw,80px);
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+
+        /* =========================================================
+           PROCESS
+        ========================================================= */
+
+        .process {
+            background: #080808;
+        }
+
+        .process-step {
+            padding: 35px 20px;
+            border-top: 1px solid var(--border);
+            position: relative;
+            transition: .4s ease;
+        }
+
+        .process-step:hover {
+            padding-left: 35px;
+            border-color: rgba(140,255,0,.4);
+        }
+
+        .process-number {
+            font-family: "Orbitron";
+            color: var(--green);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .process-step h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: var(--gray);
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           PORTFOLIO
+        ========================================================= */
+
+        .portfolio-card {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #101010;
+            min-height: 430px;
+        }
+
+        .portfolio-image {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(140,255,0,.4), transparent 30%),
+                linear-gradient(135deg,#111,#202820);
+        }
+
+        .portfolio-image::before {
+            content: "";
+            position: absolute;
+            inset: 20px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 15px;
+        }
+
+        .portfolio-info {
+            padding: 25px;
+        }
+
+        .portfolio-info span {
+            color: var(--green);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .portfolio-info h3 {
+            margin-top: 10px;
+            font-size: 24px;
+        }
+
+
+        /* =========================================================
+           TESTIMONIALS
+        ========================================================= */
+
+        .testimonial {
+            padding: 35px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: rgba(255,255,255,.025);
+            height: 100%;
+        }
+
+        .stars {
+            color: var(--green);
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+        }
+
+        .testimonial p {
+            color: #c5c5c5;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--green);
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta {
+            padding: 100px 0;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(140,255,0,.15), transparent 40%),
+                #090909;
+        }
+
+        .cta-inner {
+            border: 1px solid rgba(140,255,0,.2);
+            border-radius: 35px;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: rgba(140,255,0,.025);
+        }
+
+        .cta-inner h2 {
+            font-size: clamp(40px,6vw,75px);
+            font-family: "Poppins";
+            font-weight: 800;
+            letter-spacing: -3px;
+        }
+
+        .cta-inner p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 20px auto 30px;
+            line-height: 1.8;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact {
+            background: #050505;
+        }
+
+        .contact-form {
+            padding: 40px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .form-control {
+            background: #0d0d0d;
+            border: 1px solid rgba(255,255,255,.1);
+            color: white;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .form-control:focus {
+            background: #0d0d0d;
+            color: white;
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(140,255,0,.08);
+        }
+
+        .form-control::placeholder {
+            color: #777;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-art {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .contact-circle {
+            width: 330px;
+            height: 330px;
+            border: 1px solid rgba(140,255,0,.3);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .contact-circle::before,
+        .contact-circle::after {
+            content: "";
+            position: absolute;
+            inset: 35px;
+            border: 1px solid rgba(140,255,0,.15);
+            border-radius: 50%;
+        }
+
+        .contact-circle::after {
+            inset: 80px;
+        }
+
+        .contact-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 80px;
+            transform: translate(-50%,-50%);
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 80px rgba(140,255,0,.4);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0 30px;
+            background: #030303;
+        }
+
+        .footer-logo {
+            font-family: "Orbitron";
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .footer-logo span {
+            color: var(--green);
+        }
+
+        .footer-text {
+            color: var(--gray);
+            max-width: 400px;
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .3s ease;
+        }
+
+        .social-links a:hover {
+            border-color: var(--green);
+            color: var(--green);
+            transform: translateY(-4px);
+        }
+
+        .copyright {
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+            padding-top: 25px;
+            color: #666;
+            font-size: 13px;
+        }
+
+
+        /* =========================================================
+           REVEAL FALLBACK
+        ========================================================= */
+
+        .reveal {
+            opacity: 1;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media(max-width: 991px) {
+
+            .navbar-nav {
+                gap: 5px;
+                padding-top: 20px;
+            }
+
+            .hero {
+                padding-top: 130px;
+            }
+
+            .hero-visual {
+                height: 450px;
+                margin-top: 50px;
+            }
+
+            .laptop {
+                width: 480px;
+                height: 300px;
+                right: 50%;
+                transform:
+                    translateX(50%)
+                    perspective(1000px)
+                    rotateY(-8deg);
+            }
+
+            .phone {
+                right: 10%;
+                bottom: 10px;
+            }
+
+            .badge-1 {
+                left: 5%;
+            }
+
+            .badge-2 {
+                left: 10%;
+            }
+
+            .badge-3 {
+                right: 0;
+            }
+        }
+
+        @media(max-width: 767px) {
+
+            .cursor,
+            .cursor-dot {
+                display: none;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .hero-visual {
+                height: 350px;
+            }
+
+            .laptop {
+                width: 330px;
+                height: 210px;
+                border-width: 5px;
+            }
+
+            .laptop-screen {
+                padding: 12px;
+            }
+
+            .screen-card {
+                height: 65px;
+            }
+
+            .phone {
+                width: 95px;
+                height: 190px;
+                border-width: 5px;
+                right: 5%;
+                bottom: 10px;
+            }
+
+            .phone-screen {
+                padding: 7px;
+                border-radius: 12px;
+            }
+
+            .float-badge {
+                padding: 8px 12px;
+                font-size: 9px;
+            }
+
+            .badge-1 {
+                top: 20px;
+                left: 0;
+            }
+
+            .badge-2 {
+                bottom: 20px;
+                left: 0;
+            }
+
+            .badge-3 {
+                top: 80px;
+                right: 0;
+            }
+
+            .reporting-title {
+                margin-bottom: 40px;
+            }
+
+            .report-card {
+                min-height: 250px;
+            }
+
+            .contact-art {
+                min-height: 350px;
+            }
+
+            .contact-circle {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media(prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         CUSTOM CURSOR
+    ========================================================= -->
+
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================= -->
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+
+            <a class="navbar-brand magnetic" href="#home">
+                Web<span>Zelora</span>
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNav"
+                style="border-color:#8cff00;"
+            >
+                <span style="color:#8cff00;">☰</span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#process">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn-green magnetic" href="#contact">
+                            Let's Talk
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <section class="hero" id="home">
+
+        <canvas id="heroCanvas"></canvas>
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-7">
+
+                    <div class="hero-content">
+
+                        <div class="eyebrow hero-item">
+                            <span class="eyebrow-dot"></span>
+                            WEB DEVELOPMENT • DIGITAL MARKETING
+                        </div>
+
+                        <h1 class="hero-title hero-item">
+                            We Build Better
+                            <span>Websites</span>
+                            & Stronger Brands.
+                        </h1>
+
+                        <p class="hero-description hero-item">
+                            Web Zelora creates high-performance websites,
+                            powerful digital experiences and growth-focused
+                            digital marketing strategies for modern businesses.
+                        </p>
+
+                        <div class="hero-buttons hero-item">
+
+                            <a href="#portfolio"
+                               class="btn-green magnetic">
+                                Explore Our Work
+                            </a>
+
+                            <a href="#contact"
+                               class="btn-outline magnetic">
+                                Start a Project →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-5">
+
+                    <div class="hero-visual">
+
+                        <div class="laptop hero-device">
+
+                            <div class="laptop-screen">
+
+                                <div class="screen-bar">
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                </div>
+
+                                <div class="screen-content">
+
+                                    <div class="screen-card">
+                                        <div class="screen-line"></div>
+                                        <div class="screen-line small"></div>
+                                    </div>
+
+                                    <div class="screen-card">
+                                        <div class="screen-line"></div>
+                                        <div class="screen-line small"></div>
+                                    </div>
+
+                                    <div class="screen-card">
+                                        <div class="screen-line"></div>
+                                        <div class="screen-line small"></div>
+                                    </div>
+
+                                    <div class="screen-card">
+                                        <div class="screen-line"></div>
+                                        <div class="screen-line small"></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="phone hero-device">
+
+                            <div class="phone-screen">
+
+                                <div class="screen-line"></div>
+
+                                <div class="screen-card"></div>
+
+                                <div class="screen-card"></div>
+
+                                <div class="screen-line small"></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="float-badge badge-1">
+                            <strong>98%</strong>
+                            Client Satisfaction
+                        </div>
+
+                        <div class="float-badge badge-2">
+                            <strong>100+</strong>
+                            Projects
+                        </div>
+
+                        <div class="float-badge badge-3">
+                            <strong>5+</strong>
+                            Years Experience
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         REPORTING / SPECIAL SECTION
+    ========================================================= -->
+
+    <section class="reporting-section">
+
+        <div class="container reporting-content">
+
+            <div class="reporting-title">
+                Reporting <span>&</span><br>
+                Response
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-lg-4">
+
+                    <div class="report-card">
+
+                        <div class="report-number">
+                            01 / STRATEGY
+                        </div>
+
+                        <h3>
+                            Understand
+                        </h3>
+
+                        <p>
+                            We understand your business, audience,
+                            competitors and goals before building
+                            the digital strategy.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="report-card">
+
+                        <div class="report-number">
+                            02 / EXECUTION
+                        </div>
+
+                        <h3>
+                            Build
+                        </h3>
+
+                        <p>
+                            Our team transforms ideas into modern,
+                            responsive and high-performance digital
+                            experiences.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="report-card">
+
+                        <div class="report-number">
+                            03 / GROWTH
+                        </div>
+
+                        <h3>
+                            Grow
+                        </h3>
+
+                        <p>
+                            We monitor performance, analyze results
+                            and continuously improve your online
+                            presence.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         SERVICES
+    ========================================================= -->
+
+    <section class="services" id="services">
+
+        <div class="container">
+
+            <div class="row mb-5">
+
+                <div class="col-lg-8">
+
+                    <div class="section-label">
+                        What We Do
+                    </div>
+
+                    <h2 class="section-title">
+                        Digital solutions
+                        built for growth.
+                    </h2>
+
+                    <p class="section-description">
+                        From websites to digital marketing, Web Zelora
+                        provides everything your business needs to build
+                        a strong digital presence.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- Service 1 -->
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            &lt;/&gt;
+                        </div>
+
+                        <h3>
+                            Website Development
+                        </h3>
+
+                        <p>
+                            Modern, responsive and high-performance
+                            websites built using modern technologies.
+                        </p>
+
+                        <div class="service-arrow">
+                            ↗
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Service 2 -->
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            ◉
+                        </div>
+
+                        <h3>
+                            Digital Marketing
+                        </h3>
+
+                        <p>
+                            Data-driven campaigns designed to generate
+                            visibility, leads and business growth.
+                        </p>
+
+                        <div class="service-arrow">
+                            ↗
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Service 3 -->
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            ↗
+                        </div>
+
+                        <h3>
+                            SEO
+                        </h3>
+
+                        <p>
+                            Technical, on-page and off-page SEO strategies
+                            to improve organic search visibility.
+                        </p>
+
+                        <div class="service-arrow">
+                            ↗
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Service 4 -->
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            ✦
+                        </div>
+
+                        <h3>
+                            UI / UX Design
+                        </h3>
+
+                        <p>
+                            Clean, intuitive and engaging interfaces
+                            designed around real user experiences.
+                        </p>
+
+                        <div class="service-arrow">
+                            ↗
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Service 5 -->
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            #
+                        </div>
+
+                        <h3>
+                            Social Media
+                        </h3>
+
+                        <p>
+                            Creative social media strategies that help
+                            businesses connect with their audience.
+                        </p>
+
+                        <div class="service-arrow">
+                            ↗
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Service 6 -->
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            ◆
+                        </div>
+
+                        <h3>
+                            Branding & Design
+                        </h3>
+
+                        <p>
+                            Memorable visual identities that make your
+                            business recognizable and professional.
+                        </p>
+
+                        <div class="service-arrow">
+                            ↗
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         IMPACT
+    ========================================================= -->
+
+    <section class="impact">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-5">
+
+                    <div class="section-label">
+                        Our Impact
+                    </div>
+
+                    <h2 class="section-title">
+                        Numbers that
+                        speak.
+                    </h2>
+
+                    <p class="section-description">
+                        We focus on measurable results and long-term
+                        digital growth rather than simply delivering
+                        another website.
+                    </p>
+
+                </div>
+
+
+                <div class="col-lg-7">
+
+                    <div class="row">
+
+                        <div class="col-6">
+
+                            <div class="stat">
+
+                                <div
+                                    class="stat-number"
+                                    data-target="50"
+                                >
+                                    0+
+                                </div>
+
+                                <div class="stat-label">
+                                    Clients
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6">
+
+                            <div class="stat">
+
+                                <div
+                                    class="stat-number"
+                                    data-target="100"
+                                >
+                                    0+
+                                </div>
+
+                                <div class="stat-label">
+                                    Projects
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6">
+
+                            <div class="stat">
+
+                                <div
+                                    class="stat-number"
+                                    data-target="5"
+                                >
+                                    0+
+                                </div>
+
+                                <div class="stat-label">
+                                    Years Experience
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6">
+
+                            <div class="stat">
+
+                                <div
+                                    class="stat-number"
+                                    data-target="98"
+                                >
+                                    0%
+                                </div>
+
+                                <div class="stat-label">
+                                    Satisfaction
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PROCESS
+    ========================================================= -->
+
+    <section class="process" id="process">
+
+        <div class="container">
+
+            <div class="row mb-5">
+
+                <div class="col-lg-8">
+
+                    <div class="section-label">
+                        Our Process
+                    </div>
+
+                    <h2 class="section-title">
+                        From idea to
+                        impact.
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="process-list">
+
+                <div class="process-step">
+
+                    <div class="process-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Discover
+                    </h3>
+
+                    <p>
+                        We learn about your business, customers,
+                        competitors and objectives.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <div class="process-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Plan
+                    </h3>
+
+                    <p>
+                        We create the strategy, structure and visual
+                        direction for your digital project.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <div class="process-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Build
+                    </h3>
+
+                    <p>
+                        Our development and design team turns the
+                        strategy into a functional digital product.
+                    </p>
+
+                </div>
+
+
+                <div class="process-step">
+
+                    <div class="process-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Grow
+                    </h3>
+
+                    <p>
+                        We use analytics, SEO and digital marketing
+                        to continuously improve performance.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PORTFOLIO
+    ========================================================= -->
+
+    <section class="portfolio" id="portfolio">
+
+        <div class="container">
+
+            <div class="row mb-5">
+
+                <div class="col-lg-8">
+
+                    <div class="section-label">
+                        Selected Work
+                    </div>
+
+                    <h2 class="section-title">
+                        Things we've
+                        built.
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <div class="col-lg-4">
+
+                    <div class="portfolio-card">
+
+                        <div class="portfolio-image"></div>
+
+                        <div class="portfolio-info">
+
+                            <span>
+                                E-Commerce
+                            </span>
+
+                            <h3>
+                                Clawlink Pet Adoption
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="portfolio-card">
+
+                        <div
+                            class="portfolio-image"
+                            style="
+                            background:
+                            radial-gradient(
+                                circle at 70% 30%,
+                                rgba(140,255,0,.4),
+                                transparent 30%
+                            ),
+                            linear-gradient(
+                                135deg,
+                                #111,
+                                #1e251c
+                            );
+                            "
+                        ></div>
+
+                        <div class="portfolio-info">
+
+                            <span>
+                                Web Development
+                            </span>
+
+                            <h3>
+                                Business Website
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="portfolio-card">
+
+                        <div
+                            class="portfolio-image"
+                            style="
+                            background:
+                            radial-gradient(
+                                circle at 30% 60%,
+                                rgba(140,255,0,.35),
+                                transparent 30%
+                            ),
+                            linear-gradient(
+                                135deg,
+                                #0c0c0c,
+                                #252525
+                            );
+                            "
+                        ></div>
+
+                        <div class="portfolio-info">
+
+                            <span>
+                                Digital Marketing
+                            </span>
+
+                            <h3>
+                                Brand Growth Campaign
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         TESTIMONIALS
+    ========================================================= -->
+
+    <section class="testimonials">
+
+        <div class="container">
+
+            <div class="row mb-5">
+
+                <div class="col-lg-8">
+
+                    <div class="section-label">
+                        Testimonials
+                    </div>
+
+                    <h2 class="section-title">
+                        What our clients
+                        say.
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <div class="col-lg-4">
+
+                    <div class="testimonial">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <p>
+                            "Web Zelora transformed our online presence.
+                            The website looks professional, loads quickly
+                            and works perfectly on mobile."
+                        </p>
+
+                        <div class="testimonial-user">
+
+                            <div class="avatar">
+                                A
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Arun
+                                </strong>
+
+                                <small class="d-block text-secondary">
+                                    Business Owner
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="testimonial">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <p>
+                            "The team understood our requirements very
+                            quickly and delivered a modern website that
+                            represents our brand."
+                        </p>
+
+                        <div class="testimonial-user">
+
+                            <div class="avatar">
+                                S
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Sarah
+                                </strong>
+
+                                <small class="d-block text-secondary">
+                                    Founder
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="testimonial">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <p>
+                            "Their digital marketing approach helped us
+                            understand our audience better and improve
+                            our online reach."
+                        </p>
+
+                        <div class="testimonial-user">
+
+                            <div class="avatar">
+                                R
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Rahul
+                                </strong>
+
+                                <small class="d-block text-secondary">
+                                    Entrepreneur
+                                </small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CTA
+    ========================================================= -->
+
+    <section class="cta">
+
+        <div class="container">
+
+            <div class="cta-inner">
+
+                <h2>
+                    Have an idea?
+                </h2>
+
+                <p>
+                    Let's turn your idea into a powerful digital
+                    experience that helps your business grow.
+                </p>
+
+                <a
+                    href="#contact"
+                    class="btn-green magnetic"
+                >
+                    Start Your Project →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CONTACT
+    ========================================================= -->
+
+    <section class="contact" id="contact">
+
+        <div class="container">
+
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-6">
+
+                    <div class="section-label">
+                        Contact
+                    </div>
+
+                    <h2 class="section-title">
+                        Let's build
+                        something great.
+                    </h2>
+
+                    <p class="section-description">
+                        Tell us about your project and we'll get
+                        back to you with ideas and possibilities.
+                    </p>
+
+
+                    <div class="contact-art">
+
+                        <div class="contact-circle">
+
+                            <div class="contact-core"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <form
+                        class="contact-form"
+                        id="contactForm"
+                    >
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Name
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                placeholder="Your name"
+                            >
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                placeholder="you@gmail.com"
+                            >
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Mobile
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="mobile"
+                                placeholder="10 digit mobile number"
+                            >
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Message
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="message"
+                                placeholder="Tell us about your project..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn-green magnetic w-100"
+                        >
+                            Send Message →
+                        </button>
+
+                        <div
+                            id="formMessage"
+                            class="mt-3"
+                        ></div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="row g-5">
+
+                <div class="col-lg-7">
+
+                    <div class="footer-logo">
+                        Web<span>Zelora</span>
+                    </div>
+
+                    <p class="footer-text">
+                        Web development, digital marketing and creative
+                        digital solutions for ambitious businesses.
+                    </p>
+
+                </div>
+
+
+                <div class="col-lg-5">
+
+                    <div class="social-links justify-content-lg-end">
+
+                        <a href="#" aria-label="Instagram">
+                            IG
+                        </a>
+
+                        <a href="#" aria-label="Facebook">
+                            FB
+                        </a>
+
+                        <a href="#" aria-label="LinkedIn">
+                            IN
+                        </a>
+
+                        <a href="#" aria-label="WhatsApp">
+                            WA
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="copyright">
+                © 2026 Web Zelora. All Rights Reserved.
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         BOOTSTRAP JS
+    ========================================================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- =========================================================
+         GSAP ANIMATION
+    ========================================================= -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            const reduceMotion =
+                window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                ).matches;
+
+
+            /* =====================================================
+               CUSTOM CURSOR
+            ===================================================== */
+
+            const cursor = document.querySelector(".cursor");
+            const cursorDot = document.querySelector(".cursor-dot");
+
+            if (!reduceMotion && cursor && cursorDot) {
+
+                window.addEventListener("mousemove", (e) => {
+
+                    gsap.to(cursor, {
+                        x: e.clientX,
+                        y: e.clientY,
+                        duration: .35,
+                        ease: "power3.out"
+                    });
+
+                    gsap.to(cursorDot, {
+                        x: e.clientX,
+                        y: e.clientY,
+                        duration: .08,
+                        ease: "none"
+                    });
+
+                });
+
+                document.querySelectorAll(
+                    "a, button, .service-card, .portfolio-card, .report-card"
+                ).forEach(el => {
+
+                    el.addEventListener("mouseenter", () => {
+                        document.body.classList.add("cursor-hover");
+                    });
+
+                    el.addEventListener("mouseleave", () => {
+                        document.body.classList.remove("cursor-hover");
+                    });
+
+                });
+
+            }
+
+
+            /* =====================================================
+               NAVBAR ENTRANCE
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".navbar", {
+                    y: -100,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power4.out"
+                });
+
+
+                gsap.from(".navbar-brand", {
+                    x: -40,
+                    opacity: 0,
+                    duration: .8,
+                    delay: .2,
+                    ease: "power3.out"
+                });
+
+
+                gsap.from(".nav-link", {
+                    y: -20,
+                    opacity: 0,
+                    duration: .6,
+                    stagger: .08,
+                    delay: .3,
+                    ease: "power3.out"
+                });
+
+
+                gsap.from(".navbar .btn-green", {
+                    scale: 0,
+                    opacity: 0,
+                    duration: .6,
+                    delay: .7,
+                    ease: "back.out(1.7)"
+                });
+
+            }
+
+
+            /* =====================================================
+               HERO TIMELINE
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                const heroTimeline = gsap.timeline({
+                    delay: .5
+                });
+
+
+                heroTimeline
+                    .from(".eyebrow", {
+                        y: 30,
+                        opacity: 0,
+                        duration: .8,
+                        ease: "power3.out"
+                    })
+                    .from(".hero-title", {
+                        y: 80,
+                        opacity: 0,
+                        duration: 1.1,
+                        ease: "power4.out"
+                    }, "-=.5")
+                    .from(".hero-description", {
+                        y: 40,
+                        opacity: 0,
+                        duration: .8,
+                        ease: "power3.out"
+                    }, "-=.6")
+                    .from(".hero-buttons", {
+                        y: 40,
+                        opacity: 0,
+                        duration: .8,
+                        ease: "power3.out"
+                    }, "-=.5")
+                    .from(".hero-device", {
+                        scale: .7,
+                        opacity: 0,
+                        rotationY: 25,
+                        duration: 1.3,
+                        ease: "back.out(1.3)"
+                    }, "-=1")
+                    .from(".float-badge", {
+                        scale: 0,
+                        opacity: 0,
+                        duration: .7,
+                        stagger: .15,
+                        ease: "back.out(1.7)"
+                    }, "-=.7");
+
+            }
+
+
+            /* =====================================================
+               FLOATING HERO BADGES
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.to(".badge-1", {
+                    y: -18,
+                    duration: 2.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+
+                gsap.to(".badge-2", {
+                    y: 15,
+                    duration: 2.8,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: .4
+                });
+
+                gsap.to(".badge-3", {
+                    y: -12,
+                    duration: 2.2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: .8
+                });
+
+            }
+
+
+            /* =====================================================
+               LAPTOP FLOAT
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.to(".laptop", {
+                    y: -12,
+                    duration: 3,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+
+
+                gsap.to(".phone", {
+                    y: 12,
+                    duration: 2.6,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+
+            }
+
+
+            /* =====================================================
+               HERO PARALLAX
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.to(".hero-content", {
+
+                    yPercent: -15,
+
+                    scrollTrigger: {
+                        trigger: ".hero",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+
+                });
+
+
+                gsap.to(".hero-visual", {
+
+                    yPercent: 20,
+
+                    scrollTrigger: {
+                        trigger: ".hero",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+
+                });
+
+            }
+
+
+            /* =====================================================
+               REPORTING TITLE
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".reporting-title", {
+
+                    scale: .65,
+                    opacity: 0,
+
+                    duration: 1.3,
+
+                    ease: "power4.out",
+
+                    scrollTrigger: {
+                        trigger: ".reporting-section",
+                        start: "top 70%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+
+                gsap.from(".report-card", {
+
+                    y: 100,
+                    opacity: 0,
+                    scale: .9,
+
+                    duration: 1,
+
+                    stagger: .2,
+
+                    ease: "back.out(1.4)",
+
+                    scrollTrigger: {
+                        trigger: ".reporting-section",
+                        start: "top 65%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+            }
+
+
+            /* =====================================================
+               SECTION TITLES
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.utils.toArray(
+                    ".section-label, .section-title, .section-description"
+                ).forEach((element) => {
+
+                    gsap.from(element, {
+
+                        y: 60,
+                        opacity: 0,
+
+                        duration: .9,
+
+                        ease: "power3.out",
+
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+
+                    });
+
+                });
+
+            }
+
+
+            /* =====================================================
+               SERVICES STAGGER
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".service-card", {
+
+                    y: 100,
+                    opacity: 0,
+                    scale: .92,
+
+                    duration: .8,
+
+                    stagger: .13,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                        trigger: ".services .row.g-4",
+                        start: "top 75%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+            }
+
+
+            /* =====================================================
+               SERVICE CARD HOVER
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                document.querySelectorAll(".service-card")
+                    .forEach(card => {
+
+                        card.addEventListener(
+                            "mouseenter",
+                            () => {
+
+                                gsap.to(card, {
+                                    y: -10,
+                                    scale: 1.02,
+                                    duration: .35,
+                                    ease: "power3.out"
+                                });
+
+                            }
+                        );
+
+                        card.addEventListener(
+                            "mouseleave",
+                            () => {
+
+                                gsap.to(card, {
+                                    y: 0,
+                                    scale: 1,
+                                    duration: .35,
+                                    ease: "power3.out"
+                                });
+
+                            }
+                        );
+
+                    });
+
+            }
+
+
+            /* =====================================================
+               STATS COUNTER
+            ===================================================== */
+
+            document.querySelectorAll(".stat-number")
+                .forEach(stat => {
+
+                    const target =
+                        Number(stat.dataset.target);
+
+                    const suffix =
+                        target === 98 ? "%" : "+";
+
+                    if (reduceMotion) {
+
+                        stat.textContent =
+                            target + suffix;
+
+                        return;
+
+                    }
+
+                    const counter = {
+                        value: 0
+                    };
+
+                    gsap.to(counter, {
+
+                        value: target,
+
+                        duration: 2,
+
+                        ease: "power2.out",
+
+                        scrollTrigger: {
+                            trigger: stat,
+                            start: "top 85%",
+                            toggleActions: "play none none none"
+                        },
+
+                        onUpdate: () => {
+
+                            stat.textContent =
+                                Math.floor(counter.value) +
+                                suffix;
+
+                        }
+
+                    });
+
+                });
+
+
+            /* =====================================================
+               PROCESS STEPS
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".process-step", {
+
+                    x: -100,
+                    opacity: 0,
+
+                    duration: .8,
+
+                    stagger: .18,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                        trigger: ".process-list",
+                        start: "top 75%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+
+                document.querySelectorAll(".process-step")
+                    .forEach(step => {
+
+                        step.addEventListener(
+                            "mouseenter",
+                            () => {
+
+                                gsap.to(step, {
+                                    x: 12,
+                                    duration: .3,
+                                    ease: "power2.out"
+                                });
+
+                            }
+                        );
+
+                        step.addEventListener(
+                            "mouseleave",
+                            () => {
+
+                                gsap.to(step, {
+                                    x: 0,
+                                    duration: .3,
+                                    ease: "power2.out"
+                                });
+
+                            }
+                        );
+
+                    });
+
+            }
+
+
+            /* =====================================================
+               PORTFOLIO
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".portfolio-card", {
+
+                    y: 120,
+                    opacity: 0,
+                    rotationX: 12,
+
+                    duration: 1,
+
+                    stagger: .2,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                        trigger: ".portfolio-card",
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+
+                document.querySelectorAll(".portfolio-card")
+                    .forEach(card => {
+
+                        const image =
+                            card.querySelector(".portfolio-image");
+
+                        card.addEventListener(
+                            "mouseenter",
+                            () => {
+
+                                gsap.to(image, {
+                                    scale: 1.08,
+                                    duration: .6,
+                                    ease: "power3.out"
+                                });
+
+                            }
+                        );
+
+                        card.addEventListener(
+                            "mouseleave",
+                            () => {
+
+                                gsap.to(image, {
+                                    scale: 1,
+                                    duration: .6,
+                                    ease: "power3.out"
+                                });
+
+                            }
+                        );
+
+                    });
+
+            }
+
+
+            /* =====================================================
+               TESTIMONIALS
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".testimonial", {
+
+                    y: 90,
+                    opacity: 0,
+
+                    duration: .9,
+
+                    stagger: .18,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                        trigger: ".testimonials",
+                        start: "top 75%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+            }
+
+
+            /* =====================================================
+               CTA
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".cta-inner", {
+
+                    scale: .85,
+                    opacity: 0,
+
+                    duration: 1.2,
+
+                    ease: "power4.out",
+
+                    scrollTrigger: {
+                        trigger: ".cta",
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+
+                gsap.to(".cta-inner", {
+
+                    y: -15,
+
+                    duration: 2.5,
+
+                    repeat: -1,
+
+                    yoyo: true,
+
+                    ease: "sine.inOut"
+
+                });
+
+            }
+
+
+            /* =====================================================
+               CONTACT FORM
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from(".contact-form", {
+
+                    x: 100,
+                    opacity: 0,
+
+                    duration: 1,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                        trigger: ".contact",
+                        start: "top 70%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+
+                gsap.from(".contact-art", {
+
+                    x: -100,
+                    opacity: 0,
+
+                    duration: 1,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                        trigger: ".contact",
+                        start: "top 70%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+
+                gsap.to(".contact-circle", {
+
+                    rotation: 360,
+
+                    duration: 25,
+
+                    repeat: -1,
+
+                    ease: "none"
+
+                });
+
+
+                gsap.to(".contact-core", {
+
+                    scale: 1.25,
+
+                    duration: 1.5,
+
+                    repeat: -1,
+
+                    yoyo: true,
+
+                    ease: "sine.inOut"
+
+                });
+
+            }
+
+
+            /* =====================================================
+               FOOTER
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                gsap.from("footer .container > *", {
+
+                    y: 40,
+                    opacity: 0,
+
+                    duration: .8,
+
+                    stagger: .15,
+
+                    ease: "power3.out",
+
+                    scrollTrigger: {
+                        trigger: "footer",
+                        start: "top 90%",
+                        toggleActions: "play none none reverse"
+                    }
+
+                });
+
+            }
+
+
+            /* =====================================================
+               MAGNETIC BUTTONS
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                document.querySelectorAll(".magnetic")
+                    .forEach(button => {
+
+                        button.addEventListener(
+                            "mousemove",
+                            function(e) {
+
+                                const rect =
+                                    button.getBoundingClientRect();
+
+                                const x =
+                                    e.clientX -
+                                    rect.left -
+                                    rect.width / 2;
+
+                                const y =
+                                    e.clientY -
+                                    rect.top -
+                                    rect.height / 2;
+
+                                gsap.to(button, {
+
+                                    x: x * .18,
+                                    y: y * .18,
+
+                                    duration: .3,
+
+                                    ease: "power2.out"
+
+                                });
+
+                            }
+                        );
+
+
+                        button.addEventListener(
+                            "mouseleave",
+                            function() {
+
+                                gsap.to(button, {
+
+                                    x: 0,
+                                    y: 0,
+
+                                    duration: .5,
+
+                                    ease: "elastic.out(1,.4)"
+
+                                });
+
+                            }
+                        );
+
+                    });
+
+            }
+
+
+            /* =====================================================
+               MOUSE GLOW
+            ===================================================== */
+
+            if (!reduceMotion) {
+
+                const glow =
+                    document.createElement("div");
+
+                glow.style.position = "fixed";
+                glow.style.width = "350px";
+                glow.style.height = "350px";
+                glow.style.borderRadius = "50%";
+                glow.style.pointerEvents = "none";
+                glow.style.zIndex = "0";
+                glow.style.background =
+                    "radial-gradient(circle, rgba(140,255,0,.07), transparent 70%)";
+                glow.style.transform =
+                    "translate(-50%, -50%)";
+                glow.style.left = "0";
+                glow.style.top = "0";
+
+                document.body.appendChild(glow);
+
+
+                window.addEventListener(
+                    "mousemove",
+                    e => {
+
+                        gsap.to(glow, {
+
+                            x: e.clientX,
+                            y: e.clientY,
+
+                            duration: .8,
+
+                            ease: "power3.out"
+
+                        });
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================================
+               HERO CANVAS PARTICLES
+            ===================================================== */
+
+            const canvas =
+                document.getElementById("heroCanvas");
+
+            if (canvas) {
+
+                const ctx =
+                    canvas.getContext("2d");
+
+                let particles = [];
+
+                function resizeCanvas() {
+
+                    canvas.width =
+                        window.innerWidth;
+
+                    canvas.height =
+                        window.innerHeight;
+
+                }
+
+                resizeCanvas();
+
+                window.addEventListener(
+                    "resize",
+                    resizeCanvas
+                );
+
+
+                function createParticles() {
+
+                    particles = [];
+
+                    const count =
+                        window.innerWidth < 768
+                        ? 35
+                        : 75;
+
+                    for (
+                        let i = 0;
+                        i < count;
+                        i++
+                    ) {
+
+                        particles.push({
+
+                            x: Math.random() *
+                                canvas.width,
+
+                            y: Math.random() *
+                                canvas.height,
+
+                            radius:
+                                Math.random() * 1.5 + .5,
+
+                            speedX:
+                                (Math.random() - .5) * .25,
+
+                            speedY:
+                                (Math.random() - .5) * .25
+
+                        });
+
+                    }
+
+                }
+
+                createParticles();
+
+
+                function drawParticles() {
+
+                    ctx.clearRect(
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+                    particles.forEach(p => {
+
+                        p.x += p.speedX;
+                        p.y += p.speedY;
+
+                        if (p.x < 0)
+                            p.x = canvas.width;
+
+                        if (p.x > canvas.width)
+                            p.x = 0;
+
+                        if (p.y < 0)
+                            p.y = canvas.height;
+
+                        if (p.y > canvas.height)
+                            p.y = 0;
+
+                        ctx.beginPath();
+
+                        ctx.arc(
+                            p.x,
+                            p.y,
+                            p.radius,
+                            0,
+                            Math.PI * 2
+                        );
+
+                        ctx.fillStyle =
+                            "rgba(140,255,0,.35)";
+
+                        ctx.fill();
+
+                    });
+
+                    requestAnimationFrame(
+                        drawParticles
+                    );
+
+                }
+
+                if (!reduceMotion) {
+                    drawParticles();
+                }
+
+            }
+
+
+            /* =====================================================
+               CONTACT FORM VALIDATION
+            ===================================================== */
+
+            const form =
+                document.getElementById("contactForm");
+
+            if (form) {
+
+                form.addEventListener(
+                    "submit",
+                    function(e) {
+
+                        e.preventDefault();
+
+                        const name =
+                            document.getElementById("name")
+                            .value.trim();
+
+                        const email =
+                            document.getElementById("email")
+                            .value.trim();
+
+                        const mobile =
+                            document.getElementById("mobile")
+                            .value.trim();
+
+                        const message =
+                            document.getElementById("message")
+                            .value.trim();
+
+                        const formMessage =
+                            document.getElementById(
+                                "formMessage"
+                            );
+
+
+                        if (name.length < 2) {
+
+                            formMessage.innerHTML =
+                                `<div class="alert alert-danger">
+                                    Please enter your name.
+                                </div>`;
+
+                            return;
+
+                        }
+
+
+                        const gmailRegex =
+                            /^[A-Za-z0-9._%+-]+@gmail\.com$/;
+
+
+                        if (!gmailRegex.test(email)) {
+
+                            formMessage.innerHTML =
+                                `<div class="alert alert-danger">
+                                    Please enter a valid Gmail address.
+                                </div>`;
+
+                            return;
+
+                        }
+
+
+                        const mobileRegex =
+                            /^[6-9][0-9]{9}$/;
+
+
+                        if (!mobileRegex.test(mobile)) {
+
+                            formMessage.innerHTML =
+                                `<div class="alert alert-danger">
+                                    Please enter a valid 10-digit mobile number.
+                                </div>`;
+
+                            return;
+
+                        }
+
+
+                        if (message.length < 10) {
+
+                            formMessage.innerHTML =
+                                `<div class="alert alert-danger">
+                                    Please enter a message with at least 10 characters.
+                                </div>`;
+
+                            return;
+
+                        }
+
+
+                        formMessage.innerHTML =
+                            `<div class="alert alert-success">
+                                Message validated successfully!
+                            </div>`;
+
+
+                        if (!reduceMotion) {
+
+                            gsap.fromTo(
+                                "#formMessage",
+                                {
+                                    y: 20,
+                                    opacity: 0
+                                },
+                                {
+                                    y: 0,
+                                    opacity: 1,
+                                    duration: .5,
+                                    ease: "power3.out"
+                                }
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================================
+               SCROLLTRIGGER REFRESH
+            ===================================================== */
+
+            window.addEventListener(
+                "load",
+                () => {
+
+                    ScrollTrigger.refresh();
+
+                }
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
