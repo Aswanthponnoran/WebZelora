@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Zelora — Our Work</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ========== GLOBAL ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #050a06; color: #fff; font-family: "Inter", sans-serif; overflow-x: hidden; }
+button, a { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+
+:root {
+    --bg: #050a06;
+    --card: #09110b;
+    --green: #39E75F;
+    --green-dark: #20b83f;
+    --text: #fff;
+    --muted: #8b968e;
+    --border: rgba(57, 231, 95, 0.15);
+}
+
+/* ========== SECTION ========== */
+.section {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px 0;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(57, 231, 95, 0.04), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(57, 231, 95, 0.035), transparent 35%),
+        var(--bg);
+    overflow: hidden;
+}
+.wrap { width: min(1400px, 92%); margin: 0 auto; }
+
+/* ========== HEADER ========== */
+.work-head-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 50px; margin-bottom: 55px;
+}
+.work-head-row .l { max-width: 750px; }
+
+.eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--green); font-size: 13px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px;
+}
+.eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--green); }
+
+.work-head-row h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(42px, 6vw, 82px);
+    line-height: 0.98; font-weight: 700; letter-spacing: -3px; margin-bottom: 22px;
+}
+.work-head-row h2 b { color: var(--green); font-weight: 700; }
+.work-head-row p { max-width: 650px; color: var(--muted); font-size: 16px; line-height: 1.8; }
+
+/* ========== BUTTON ========== */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    white-space: nowrap; padding: 14px 20px; border-radius: 100px;
+    font-size: 13px; font-weight: 600; transition: 0.35s ease;
+}
+.btn-outline { border: 1px solid rgba(255,255,255,0.2); color: #fff; background: rgba(255,255,255,0.02); }
+.btn-outline:hover { background: var(--green); color: #050a06; border-color: var(--green); transform: translateY(-3px); }
+.btn svg { width: 18px; height: 18px; transition: 0.3s ease; }
+.btn:hover svg { transform: translateX(4px); }
+
+/* ========== CAROUSEL ========== */
+.projects-carousel { position: relative; width: 100%; overflow: hidden; padding: 10px 0 20px; }
+
+.projects-track {
+    display: flex; gap: 25px;
+    transition: transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform;
+}
+
+/* ========== CARD ========== */
+.work-card {
+    position: relative;
+    flex: 0 0 calc((100% - 50px) / 3);   /* 3 cards, 2 gaps of 25px */
+    min-width: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+}
+.work-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(57, 231, 95, 0.45);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 40px rgba(57,231,95,0.06);
+}
+
+.work-thumb { position: relative; height: 450px; overflow: hidden; background: #071008; }
+
+.project-video {
+    width: 100%; height: 100%; display: block; object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.work-card:hover .project-video { transform: scale(1.08); }
+
+.video-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.02) 35%, rgba(0,0,0,0.92) 100%);
+    pointer-events: none; z-index: 2;
+}
+
+.work-thumb::after {
+    content: ""; position: absolute; width: 280px; height: 280px;
+    right: -130px; top: -130px; border-radius: 50%;
+    background: rgba(57,231,95,0.14); filter: blur(80px);
+    pointer-events: none; z-index: 1;
+}
+
+.project-number {
+    position: absolute; top: 22px; left: 22px; z-index: 5;
+    font-family: monospace; font-size: 12px; letter-spacing: 3px; color: var(--green);
+    padding: 8px 12px; border: 1px solid rgba(57,231,95,0.25); border-radius: 100px;
+    background: rgba(5,10,6,0.6); backdrop-filter: blur(10px);
+}
+
+.video-play {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.45);
+    background: rgba(5,10,6,0.6); backdrop-filter: blur(12px);
+    color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; z-index: 8; transition: 0.35s ease;
+}
+.video-play:hover {
+    background: var(--green); color: #050a06; border-color: var(--green);
+    transform: translate(-50%, -50%) scale(1.12);
+}
+
+.project-content {
+    position: absolute; left: 25px; right: 25px; bottom: 25px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; z-index: 6;
+}
+.project-content h4 {
+    margin: 0 0 9px; font-family: "Poppins", sans-serif;
+    font-size: 23px; line-height: 1.25; font-weight: 600;
+}
+.project-content span { color: var(--green); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; }
+
+.project-arrow {
+    flex-shrink: 0; width: 48px; height: 48px;
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 21px; transition: 0.35s ease;
+}
+.work-card:hover .project-arrow {
+    background: var(--green); color: #050a06; border-color: var(--green); transform: rotate(45deg);
+}
+
+.work-meta { padding: 22px 25px 24px; display: flex; justify-content: space-between; }
+.work-meta h5 { font-family: "Poppins", sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 7px; }
+.work-tag { color: #718078; font-size: 12px; }
+
+/* ========== CAROUSEL BUTTONS ========== */
+.carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 58px; height: 58px; border-radius: 50%;
+    border: 1px solid rgba(57,231,95,0.35);
+    background: rgba(5,10,6,0.85); backdrop-filter: blur(15px);
+    color: #fff; font-size: 22px; cursor: pointer; z-index: 20;
+    display: flex; align-items: center; justify-content: center; transition: 0.35s ease;
+}
+.carousel-btn:hover {
+    background: var(--green); color: #050a06; border-color: var(--green);
+    transform: translateY(-50%) scale(1.1);
+}
+.carousel-btn[hidden] { display: none; }
+.carousel-prev { left: 15px; }
+.carousel-next { right: 15px; }
+
+/* ========== DOTS ========== */
+.carousel-dots { display: flex; justify-content: center; align-items: center; gap: 9px; margin-top: 30px; }
+.dot {
+    width: 8px; height: 8px; padding: 0; border: none; border-radius: 100px;
+    background: #354039; cursor: pointer; transition: 0.35s ease;
+}
+.dot:hover { background: #7b887e; }
+.dot.active { width: 32px; background: var(--green); }
+
+/* ========== REVEAL ========== */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.show { opacity: 1; transform: translateY(0); }
+
+/* ========== TABLET ========== */
+@media (max-width: 1000px) {
+    .work-card { flex: 0 0 calc((100% - 25px) / 2); }   /* 2 cards, 1 gap */
+    .work-thumb { height: 400px; }
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 700px) {
+    .section { padding: 90px 0; }
+    .work-head-row { flex-direction: column; align-items: flex-start; gap: 25px; margin-bottom: 35px; }
+    .work-head-row h2 { letter-spacing: -2px; }
+    .work-card { flex: 0 0 100%; }
+    .work-thumb { height: 390px; }
+    .carousel-btn { width: 48px; height: 48px; font-size: 18px; }
+    .carousel-prev { left: 10px; }
+    .carousel-next { right: 10px; }
+}
+
+/* ========== SMALL MOBILE ========== */
+@media (max-width: 450px) {
+    .section { padding: 75px 0; }
+    .work-head-row h2 { font-size: 43px; }
+    .work-head-row p { font-size: 14px; }
+    .work-thumb { height: 330px; }
+    .project-content { left: 18px; right: 18px; bottom: 18px; }
+    .project-content h4 { font-size: 18px; }
+    .project-content span { font-size: 9px; }
+    .project-arrow { width: 42px; height: 42px; }
+    .work-meta { padding: 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<section class="section" id="work">
+    <div class="wrap">
+
+        <!-- HEADER -->
+        <div class="work-head-row reveal">
+            <div class="l">
+                <div class="eyebrow">Our Work</div>
+                <h2>Recent <b>Projects</b></h2>
+                <p>Take a look at some of our recent work. We design and develop websites that make an impact.</p>
+            </div>
+
+            <a href="#" class="btn btn-outline">
+                View All Projects
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- CAROUSEL -->
+        <div class="projects-carousel reveal" id="projectCarousel">
+
+            <div class="projects-track" id="projectsTrack">
+
+                <!-- PROJECT 01 -->
+                <article class="work-card">
+                    <div class="work-thumb">
+                        <video class="project-video" muted loop playsinline preload="metadata" poster="project1.jpg">
+                            <source src="project1.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                        <div class="project-number">01</div>
+                        <button class="video-play" type="button" aria-label="Play or pause video">❚❚</button>
+                        <div class="project-content">
+                            <div>
+                                <h4>Modern Solutions for a Better Tomorrow</h4>
+                                <span>Business Website</span>
+                            </div>
+                            <div class="project-arrow">↗</div>
+                        </div>
+                    </div>
+                    <div class="work-meta">
+                        <div>
+                            <h5>Business Website</h5>
+                            <span class="work-tag">Website Development</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 02 -->
+                <article class="work-card">
+                    <div class="work-thumb">
+                        <video class="project-video" muted loop playsinline preload="metadata" poster="project2.jpg">
+                            <source src="project2.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                        <div class="project-number">02</div>
+                        <button class="video-play" type="button" aria-label="Play or pause video">❚❚</button>
+                        <div class="project-content">
+                            <div>
+                                <h4>Fresh Food Healthy Life</h4>
+                                <span>E-Commerce Website</span>
+                            </div>
+                            <div class="project-arrow">↗</div>
+                        </div>
+                    </div>
+                    <div class="work-meta">
+                        <div>
+                            <h5>E-Commerce Website</h5>
+                            <span class="work-tag">Website Development</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 03 -->
+                <article class="work-card">
+                    <div class="work-thumb">
+                        <video class="project-video" muted loop playsinline preload="metadata" poster="project3.jpg">
+                            <source src="project3.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                        <div class="project-number">03</div>
+                        <button class="video-play" type="button" aria-label="Play or pause video">❚❚</button>
+                        <div class="project-content">
+                            <div>
+                                <h4>Grow Your Brand With Our Marketing</h4>
+                                <span>Digital Marketing</span>
+                            </div>
+                            <div class="project-arrow">↗</div>
+                        </div>
+                    </div>
+                    <div class="work-meta">
+                        <div>
+                            <h5>Digital Marketing Campaign</h5>
+                            <span class="work-tag">Digital Marketing</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!--
+                  TO ADD MORE PROJECTS: copy one <article class="work-card"> block
+                  above and paste it here, inside this track. Dots, buttons and
+                  sliding adjust automatically.
+                -->
+
+            </div>
+
+            <button class="carousel-btn carousel-prev" id="prevProject" type="button" aria-label="Previous project">←</button>
+            <button class="carousel-btn carousel-next" id="nextProject" type="button" aria-label="Next project">→</button>
+        </div>
+
+        <!-- DOTS (generated by JavaScript) -->
+        <div class="carousel-dots" id="carouselDots"></div>
+
+    </div>
+</section>
+
+
+<script>
+/* ===================== ELEMENTS ===================== */
+const track     = document.getElementById("projectsTrack");
+const carousel  = document.getElementById("projectCarousel");
+const dotsWrap  = document.getElementById("carouselDots");
+const nextBtn   = document.getElementById("nextProject");
+const prevBtn   = document.getElementById("prevProject");
+const cards     = Array.from(document.querySelectorAll(".work-card"));
+const videos    = Array.from(document.querySelectorAll(".project-video"));
+
+/* ===================== STATE ===================== */
+let currentSlide = 0;
+let autoPlay = null;
+let isPaused = false;
+const autoPlayDelay = 3500;
+
+/* ===================== HELPERS ===================== */
+function getVisibleCards() {
+    if (window.innerWidth <= 700)  return 1;
+    if (window.innerWidth <= 1000) return 2;
+    return 3;
+}
+
+function getMaxSlide() {
+    return Math.max(0, cards.length - getVisibleCards());
+}
+
+function getCardWidth() {
+    if (!cards.length) return 0;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    return cards[0].offsetWidth + gap;
+}
+
+/* ===================== DOTS ===================== */
+function buildDots() {
+    const total = getMaxSlide() + 1;
+    dotsWrap.innerHTML = "";
+
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "dot";
+        dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+        dot.addEventListener("click", () => {
+            currentSlide = i;
+            updateSlider();
+            restartAutoPlay();
+        });
+        dotsWrap.appendChild(dot);
+    }
+
+    // nothing to slide? hide the controls
+    const canSlide = total > 1;
+    dotsWrap.hidden = !canSlide;
+    nextBtn.hidden  = !canSlide;
+    prevBtn.hidden  = !canSlide;
+}
+
+function updateDots() {
+    dotsWrap.querySelectorAll(".dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentSlide);
+    });
+}
+
+/* ===================== VIDEOS ===================== */
+// Play every video that is currently visible, pause the rest.
+function updateVideos() {
+    const visible = getVisibleCards();
+
+    videos.forEach((video, i) => {
+        const inView = i >= currentSlide && i < currentSlide + visible;
+
+        if (inView) {
+            if (!video.dataset.manualPause) {
+                video.play().catch(() => {});
+            }
+        } else {
+            video.pause();
+        }
+    });
+}
+
+// Keep each play/pause button icon in sync with its video
+videos.forEach(video => {
+    const button = video.closest(".work-card").querySelector(".video-play");
+    const sync = () => { button.textContent = video.paused ? "▶" : "❚❚"; };
+    video.addEventListener("play", sync);
+    video.addEventListener("pause", sync);
+    sync();
+});
+
+document.querySelectorAll(".video-play").forEach(button => {
+    button.addEventListener("click", event => {
+        event.stopPropagation();
+        const video = button.closest(".work-card").querySelector(".project-video");
+
+        if (video.paused) {
+            delete video.dataset.manualPause;
+            video.play().catch(() => {});
+        } else {
+            video.dataset.manualPause = "1";
+            video.pause();
+        }
+    });
+});
+
+/* ===================== SLIDER ===================== */
+function updateSlider() {
+    const maxSlide = getMaxSlide();
+
+    if (currentSlide > maxSlide) currentSlide = 0;
+    if (currentSlide < 0)        currentSlide = maxSlide;
+
+    track.style.transform = `translateX(-${currentSlide * getCardWidth()}px)`;
+
+    updateDots();
+    updateVideos();
+}
+
+function nextSlide() {
+    currentSlide = currentSlide >= getMaxSlide() ? 0 : currentSlide + 1;
+    updateSlider();
+}
+
+function previousSlide() {
+    currentSlide = currentSlide <= 0 ? getMaxSlide() : currentSlide - 1;
+    updateSlider();
+}
+
+/* ===================== AUTOPLAY ===================== */
+function startAutoPlay() {
+    stopAutoPlay();
+    if (getMaxSlide() === 0) return;          // nothing to slide through
+
+    autoPlay = setInterval(() => {
+        if (!isPaused) nextSlide();
+    }, autoPlayDelay);
+}
+
+function stopAutoPlay() {
+    if (autoPlay) {
+        clearInterval(autoPlay);
+        autoPlay = null;
+    }
+}
+
+function restartAutoPlay() {
+    stopAutoPlay();
+    startAutoPlay();
+}
+
+/* ===================== CONTROLS ===================== */
+nextBtn.addEventListener("click", () => { nextSlide();     restartAutoPlay(); });
+prevBtn.addEventListener("click", () => { previousSlide(); restartAutoPlay(); });
+
+carousel.addEventListener("mouseenter", () => { isPaused = true;  });
+carousel.addEventListener("mouseleave", () => { isPaused = false; });
+
+/* Touch swipe */
+let touchStartX = 0;
+
+carousel.addEventListener("touchstart", e => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+carousel.addEventListener("touchend", e => {
+    const distance = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(distance) < 50) return;
+
+    distance < 0 ? nextSlide() : previousSlide();
+    restartAutoPlay();
+}, { passive: true });
+
+/* Keyboard */
+document.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { nextSlide();     restartAutoPlay(); }
+    if (e.key === "ArrowLeft")  { previousSlide(); restartAutoPlay(); }
+});
+
+/* Resize: card width / visible count changes, so rebuild */
+let resizeTimer;
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        buildDots();
+        updateSlider();
+        restartAutoPlay();
+    }, 120);
+});
+
+/* Pause everything when the tab is hidden */
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        stopAutoPlay();
+        videos.forEach(v => v.pause());
+    } else {
+        startAutoPlay();
+        updateVideos();
+    }
+});
+
+/* ===================== REVEAL ON SCROLL ===================== */
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+/* ===================== INIT ===================== */
+buildDots();
+updateSlider();
+startAutoPlay();
+</script>
+
+</body>
+</html>

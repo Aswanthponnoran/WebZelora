@@ -9,6 +9,1005 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@300;400&display=swap" rel="stylesheet">
 <style>
+
+<link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family: "Inter", sans-serif;
+
+            background: #050a06;
+
+            color: #ffffff;
+
+            overflow-x: hidden;
+        }
+
+
+        a {
+            text-decoration: none;
+
+            color: inherit;
+        }
+
+
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        .section {
+
+            position: relative;
+
+            width: 100%;
+
+            padding: 120px 20px;
+
+            overflow: hidden;
+        }
+
+
+        .wrap {
+
+            width: 100%;
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+
+
+        /* =========================================
+           BACKGROUND EFFECT
+        ========================================= */
+
+        .section::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+
+            height: 500px;
+
+            top: 10%;
+
+            left: -250px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(57,231,95,0.08),
+                    transparent 70%
+                );
+
+            pointer-events: none;
+        }
+
+
+        .section::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 400px;
+
+            height: 400px;
+
+            right: -200px;
+
+            bottom: 0;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(57,231,95,0.06),
+                    transparent 70%
+                );
+
+            pointer-events: none;
+        }
+
+
+
+        /* =========================================
+           SECTION HEADER
+        ========================================= */
+
+        .work-head-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-end;
+
+            gap: 50px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .work-head-row .l {
+
+            max-width: 700px;
+        }
+
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #39e75f;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .eyebrow::before {
+
+            content: "";
+
+            width: 30px;
+
+            height: 1px;
+
+            background: #39e75f;
+        }
+
+
+        .work-head-row h2 {
+
+            font-size:
+                clamp(42px, 6vw, 75px);
+
+            line-height: 0.95;
+
+            font-weight: 400;
+
+            letter-spacing: -3px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .work-head-row h2 b {
+
+            font-weight: 800;
+
+            color: #39e75f;
+        }
+
+
+        .work-head-row p {
+
+            max-width: 650px;
+
+            color:
+                rgba(255,255,255,0.55);
+
+            font-size: 16px;
+
+            line-height: 1.8;
+        }
+
+
+
+        /* =========================================
+           VIEW ALL BUTTON
+        ========================================= */
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            white-space: nowrap;
+
+            padding: 14px 22px;
+
+            border-radius: 50px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.35s ease;
+        }
+
+
+        .btn-outline {
+
+            border: 1px solid
+                rgba(255,255,255,0.2);
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.02);
+        }
+
+
+        .btn-outline svg {
+
+            width: 18px;
+
+            height: 18px;
+
+            transition:
+                transform 0.35s ease;
+        }
+
+
+        .btn-outline:hover {
+
+            background: #39e75f;
+
+            color: #050a06;
+
+            border-color: #39e75f;
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        .btn-outline:hover svg {
+
+            transform:
+                translateX(4px);
+        }
+
+
+
+        /* =========================================
+           PROJECT GRID
+        ========================================= */
+
+        .work-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+            margin-top: 60px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+
+        /* =========================================
+           PROJECT CARD
+        ========================================= */
+
+        .work-card {
+
+            position: relative;
+
+            background: #090e0a;
+
+            border: 1px solid
+                rgba(255,255,255,0.08);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.6s
+                    cubic-bezier(.22,.61,.36,1),
+
+                border-color 0.4s ease,
+
+                box-shadow 0.5s ease;
+        }
+
+
+        .work-card:hover {
+
+            transform:
+                translateY(-12px);
+
+            border-color:
+                rgba(57,231,95,0.4);
+
+            box-shadow:
+                0 30px 70px
+                rgba(0,0,0,0.5);
+        }
+
+
+
+        /* =========================================
+           VIDEO AREA
+        ========================================= */
+
+        .video-project {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 390px;
+
+            overflow: hidden;
+
+            background: #080c09;
+
+            cursor: pointer;
+        }
+
+
+        .project-video {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transform:
+                scale(1.12);
+
+            filter:
+                brightness(0.55)
+                saturate(0.8);
+
+            transition:
+                transform 1.2s
+                    cubic-bezier(.22,.61,.36,1),
+
+                filter 0.8s ease;
+        }
+
+
+        .work-card:hover
+        .project-video {
+
+            transform:
+                scale(1);
+
+            filter:
+                brightness(0.82)
+                saturate(1);
+        }
+
+
+
+        /* =========================================
+           VIDEO OVERLAY
+        ========================================= */
+
+        .video-overlay {
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0,0,0,0.15),
+                    transparent 40%,
+                    rgba(0,0,0,0.95)
+                );
+
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+
+
+        /* =========================================
+           PLAY BUTTON
+        ========================================= */
+
+        .video-play {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            width: 70px;
+
+            height: 70px;
+
+            transform:
+                translate(-50%, -50%);
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(57,231,95,0.95);
+
+            color: #050a06;
+
+            z-index: 5;
+
+            transition:
+                transform 0.5s ease,
+
+                opacity 0.4s ease,
+
+                background 0.3s ease;
+        }
+
+
+        .video-play svg {
+
+            width: 28px;
+
+            height: 28px;
+
+            margin-left: 4px;
+        }
+
+
+        .work-card:hover
+        .video-play {
+
+            transform:
+                translate(-50%, -50%)
+                scale(1.15);
+
+            background:
+                rgba(57,231,95,1);
+        }
+
+
+
+        /* =========================================
+           PROJECT NUMBER
+        ========================================= */
+
+        .video-number {
+
+            position: absolute;
+
+            top: 22px;
+
+            right: 22px;
+
+            z-index: 5;
+
+            width: 42px;
+
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            border: 1px solid
+                rgba(255,255,255,0.25);
+
+            background:
+                rgba(0,0,0,0.25);
+
+            backdrop-filter:
+                blur(10px);
+
+            color:
+                rgba(255,255,255,0.8);
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+        }
+
+
+
+        /* =========================================
+           PROJECT TITLE ON VIDEO
+        ========================================= */
+
+        .video-title {
+
+            position: absolute;
+
+            left: 25px;
+
+            right: 25px;
+
+            bottom: 25px;
+
+            z-index: 5;
+        }
+
+
+        .video-title span {
+
+            display: block;
+
+            color: #39e75f;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            letter-spacing: 2.5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 9px;
+        }
+
+
+        .video-title h4 {
+
+            color: white;
+
+            font-size:
+                clamp(20px, 2vw, 26px);
+
+            font-weight: 600;
+
+            line-height: 1.25;
+        }
+
+
+
+        /* =========================================
+           PROJECT META
+        ========================================= */
+
+        .work-meta {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 22px 24px;
+        }
+
+
+        .work-meta h5 {
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            color: white;
+
+            margin-bottom: 7px;
+        }
+
+
+        .work-tag {
+
+            color:
+                rgba(255,255,255,0.45);
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+
+        /* =========================================
+           PROJECT ARROW
+        ========================================= */
+
+        .project-arrow {
+
+            flex-shrink: 0;
+
+            width: 44px;
+
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            border: 1px solid
+                rgba(255,255,255,0.15);
+
+            color: white;
+
+            transition:
+                0.4s ease;
+        }
+
+
+        .project-arrow svg {
+
+            width: 18px;
+
+            height: 18px;
+
+            transition:
+                transform 0.4s ease;
+        }
+
+
+        .project-arrow:hover {
+
+            background: #39e75f;
+
+            color: #050a06;
+
+            border-color: #39e75f;
+        }
+
+
+        .project-arrow:hover svg {
+
+            transform:
+                translateX(3px)
+                rotate(-45deg);
+        }
+
+
+
+        /* =========================================
+           REVEAL ANIMATION
+        ========================================= */
+
+        .reveal {
+
+            opacity: 0;
+
+            transform:
+                translateY(50px);
+
+            animation:
+                revealUp 1s
+                cubic-bezier(.22,.61,.36,1)
+                forwards;
+        }
+
+
+        .reveal-stagger
+        .work-card {
+
+            opacity: 0;
+
+            transform:
+                translateY(60px);
+        }
+
+
+        .reveal-stagger.visible
+        .work-card {
+
+            animation:
+                revealCard 0.9s
+                cubic-bezier(.22,.61,.36,1)
+                forwards;
+        }
+
+
+        .reveal-stagger.visible
+        .work-card:nth-child(1) {
+
+            animation-delay: 0.1s;
+        }
+
+
+        .reveal-stagger.visible
+        .work-card:nth-child(2) {
+
+            animation-delay: 0.25s;
+        }
+
+
+        .reveal-stagger.visible
+        .work-card:nth-child(3) {
+
+            animation-delay: 0.4s;
+        }
+
+
+        @keyframes revealUp {
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        @keyframes revealCard {
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 950px) {
+
+            .work-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .work-card:nth-child(3) {
+
+                grid-column:
+                    span 2;
+            }
+
+
+            .work-card:nth-child(3)
+            .video-project {
+
+                height: 420px;
+            }
+
+        }
+
+
+
+        @media (max-width: 700px) {
+
+            .section {
+
+                padding:
+                    80px 18px;
+            }
+
+
+            .work-head-row {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 30px;
+            }
+
+
+            .work-head-row h2 {
+
+                letter-spacing:
+                    -2px;
+            }
+
+
+            .work-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 20px;
+
+                margin-top: 40px;
+            }
+
+
+            .work-card:nth-child(3) {
+
+                grid-column:
+                    auto;
+            }
+
+
+            .video-project,
+
+            .work-card:nth-child(3)
+            .video-project {
+
+                height: 330px;
+            }
+
+        }
+
+
+
+        @media (max-width: 450px) {
+
+            .section {
+
+                padding:
+                    70px 14px;
+            }
+
+
+            .video-project {
+
+                height: 290px;
+            }
+
+
+            .caption {
+
+                left: 18px;
+
+                right: 18px;
+
+                bottom: 18px;
+            }
+
+
+            .video-title {
+
+                left: 18px;
+
+                right: 18px;
+
+                bottom: 18px;
+            }
+
+
+            .video-number {
+
+                top: 15px;
+
+                right: 15px;
+            }
+
+
+            .work-meta {
+
+                padding:
+                    18px;
+            }
+
+        }
+
+
+   * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        div1 {
+            font-family: Arial, sans-serif;
+            background: #050a06;
+            color: white;
+            padding: 60px 0;
+        }
+
+        .carousel {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: max-content;
+            gap: 20px;
+            animation: scroll 20s linear infinite;
+        }
+
+        .card {
+            width: 290px;
+            height: 380px;
+            flex-shrink: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Pause when mouse is over carousel */
+        .carousel:hover .carousel-track {
+            animation-play-state: paused;
+        }
+
   :root{
     --bg:#060907; --bg-panel:#0B120D; --line:#1B241D; --ink:#F3F6F3;
     --muted:#93A093; --muted-dim:#5B655C; --green:#39E75F; --green-2:#2ED158; --green-dim:#1D6E38;
@@ -398,6 +1397,104 @@
   </div>
 </section>
 
+
+<div class="div1">
+    <div class="carousel">
+
+        <div class="carousel-track">
+
+            <!-- Original cards -->
+            <div class="card">
+                <img src="D:/Aswanth/posters/web1.png">
+                <h3>Web Development</h3>
+            </div>
+
+            <div class="card">
+                <img src="D:/Aswanth/posters/www.reallygreatsite.com (1).png">
+                <h3>UI / UX Design</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f">
+                <h3>Digital Marketing</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
+                <h3>Development</h3>
+            </div>
+
+            <!-- Duplicate cards for infinite scrolling -->
+            <div class="card">
+                <img src="D:/Aswanth/posters/web1.png">
+                <h3>Web Development</h3>
+            </div>
+
+            <div class="card">
+                <img src="D:/Aswanth/posters/www.reallygreatsite.com (1).png">
+                <h3>UI / UX Design</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f">
+                <h3>Digital Marketing</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
+                <h3>Development</h3>
+            </div>
+
+   <!-- Duplicate cards for infinite scrolling -->
+            <div class="card">
+                <img src="D:/Aswanth/posters/web1.png">
+                <h3>Web Development</h3>
+            </div>
+
+            <div class="card">
+                <img src="D:/Aswanth/posters/www.reallygreatsite.com (1).png">
+                <h3>UI / UX Design</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f">
+                <h3>Digital Marketing</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
+                <h3>Development</h3>
+            </div>
+
+
+ <!-- Duplicate cards for infinite scrolling -->
+            <div class="card">
+                <img src="D:/Aswanth/posters/web1.png">
+                <h3>Web Development</h3>
+            </div>
+
+            <div class="card">
+                <img src="D:/Aswanth/posters/www.reallygreatsite.com (1).png">
+                <h3>UI / UX Design</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f">
+                <h3>Digital Marketing</h3>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
+                <h3>Development</h3>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
 <!-- ================= SERVICES ================= -->
 <section class="section" id="services">
   <div class="wrap">
@@ -539,6 +1636,427 @@
     </div>
   </div>
 </section>
+
+
+
+<section class="section" id="work">
+
+
+    <div class="wrap">
+
+
+        <!-- ===============================
+             HEADER
+        ================================ -->
+
+        <div class="work-head-row reveal">
+
+
+            <div class="l">
+
+
+                <div class="eyebrow">
+                    Our Work
+                </div>
+
+
+                <h2>
+
+                    Recent <b>Projects</b>
+
+                </h2>
+
+
+                <p>
+
+                    Take a look at some of our recent work.
+                    We design and develop websites that make
+                    an impact.
+
+                </p>
+
+
+            </div>
+
+
+
+            <a href="#"
+               class="btn btn-outline btn-sm">
+
+                View All Projects
+
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path
+                        d="M5 12h14M13 6l6 6-6 6"/>
+
+                </svg>
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- ===============================
+             PROJECT GRID
+        ================================ -->
+
+        <div class="work-grid reveal-stagger">
+
+
+
+            <!-- =================================
+                 PROJECT 01
+            ================================== -->
+
+            <div class="work-card">
+
+
+                <div class="video-project">
+
+
+                    <video
+                        class="project-video"
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        poster="project1.jpg">
+
+                        <source
+                            src="project1.mp4"
+                            type="video/mp4">
+
+                    </video>
+
+
+
+                    <!-- Overlay -->
+
+                    <div class="video-overlay"></div>
+
+
+
+                    <!-- Play Button -->
+
+                    <div class="video-play">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor">
+
+                            <path
+                                d="M8 5v14l11-7z"/>
+
+                        </svg>
+
+                    </div>
+
+
+
+                    <!-- Number -->
+
+                    <div class="video-number">
+                        01
+                    </div>
+
+
+
+                    <!-- Title -->
+
+                    <div class="video-title">
+
+                        <span>
+                            Featured Project
+                        </span>
+
+                        <h4>
+                            Modern Solutions for a Better Tomorrow
+                        </h4>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="work-meta">
+
+
+                    <div>
+
+                        <h5>
+                            Business Website
+                        </h5>
+
+                        <span class="work-tag">
+                            Website Development
+                        </span>
+
+                    </div>
+
+
+
+                    <a href="#"
+                       class="project-arrow">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M5 12h14"/>
+
+                            <path d="M13 6l6 6-6 6"/>
+
+                        </svg>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 PROJECT 02
+            ================================== -->
+
+            <div class="work-card">
+
+
+                <div class="video-project">
+
+
+                    <video
+                        class="project-video"
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        poster="project2.jpg">
+
+                        <source
+                            src="project2.mp4"
+                            type="video/mp4">
+
+                    </video>
+
+
+
+                    <div class="video-overlay"></div>
+
+
+
+                    <div class="video-play">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor">
+
+                            <path
+                                d="M8 5v14l11-7z"/>
+
+                        </svg>
+
+                    </div>
+
+
+
+                    <div class="video-number">
+                        02
+                    </div>
+
+
+
+                    <div class="video-title">
+
+                        <span>
+                            E-Commerce
+                        </span>
+
+                        <h4>
+                            Fresh Food Healthy Life
+                        </h4>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="work-meta">
+
+
+                    <div>
+
+                        <h5>
+                            E-Commerce Website
+                        </h5>
+
+                        <span class="work-tag">
+                            Website Development
+                        </span>
+
+                    </div>
+
+
+
+                    <a href="#"
+                       class="project-arrow">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M5 12h14"/>
+
+                            <path d="M13 6l6 6-6 6"/>
+
+                        </svg>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 PROJECT 03
+            ================================== -->
+
+            <div class="work-card">
+
+
+                <div class="video-project">
+
+
+                    <video
+                        class="project-video"
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        poster="project3.jpg">
+
+                        <source
+                            src="project3.mp4"
+                            type="video/mp4">
+
+                    </video>
+
+
+
+                    <div class="video-overlay"></div>
+
+
+
+                    <div class="video-play">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor">
+
+                            <path
+                                d="M8 5v14l11-7z"/>
+
+                        </svg>
+
+                    </div>
+
+
+
+                    <div class="video-number">
+                        03
+                    </div>
+
+
+
+                    <div class="video-title">
+
+                        <span>
+                            Digital Marketing
+                        </span>
+
+                        <h4>
+                            Grow Your Brand With Our Marketing
+                        </h4>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="work-meta">
+
+
+                    <div>
+
+                        <h5>
+                            Digital Marketing Campaign
+                        </h5>
+
+                        <span class="work-tag">
+                            Digital Marketing
+                        </span>
+
+                    </div>
+
+
+
+                    <a href="#"
+                       class="project-arrow">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M5 12h14"/>
+
+                            <path d="M13 6l6 6-6 6"/>
+
+                        </svg>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
 
 <!-- ================= TESTIMONIALS ================= -->
 <section class="section" id="testimonials">
@@ -774,6 +2292,235 @@ document.querySelectorAll('.slide-frame').forEach(frame => {
   new ResizeObserver(fit).observe(frame);
   fit();
 });
+
+
+
+ /* =====================================
+       PROJECT VIDEO HOVER
+    ===================================== */
+
+    const projectCards =
+        document.querySelectorAll(
+            ".work-card"
+        );
+
+
+    projectCards.forEach(card => {
+
+
+        const video =
+            card.querySelector(
+                ".project-video"
+            );
+
+
+        const playButton =
+            card.querySelector(
+                ".video-play"
+            );
+
+
+        if (!video) return;
+
+
+
+        /* ===============================
+           MOUSE ENTER
+        ================================ */
+
+        card.addEventListener(
+            "mouseenter",
+            () => {
+
+
+                video.play()
+                    .then(() => {
+
+                        if (playButton) {
+
+                            playButton.style.opacity =
+                                "0";
+
+                        }
+
+                    })
+                    .catch(() => {});
+
+
+            }
+        );
+
+
+
+        /* ===============================
+           MOUSE LEAVE
+        ================================ */
+
+        card.addEventListener(
+            "mouseleave",
+            () => {
+
+
+                video.pause();
+
+                video.currentTime = 0;
+
+
+                if (playButton) {
+
+                    playButton.style.opacity =
+                        "1";
+
+                }
+
+
+            }
+        );
+
+
+
+        /* ===============================
+           MOBILE CLICK
+        ================================ */
+
+        card.addEventListener(
+            "click",
+            event => {
+
+
+                /*
+                    Don't interfere with
+                    project arrow links.
+                */
+
+                if (
+                    event.target.closest(
+                        ".project-arrow"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                if (video.paused) {
+
+                    video.play()
+                        .then(() => {
+
+                            if (playButton) {
+
+                                playButton.style.opacity =
+                                    "0";
+
+                            }
+
+                        })
+                        .catch(() => {});
+
+                }
+
+                else {
+
+                    video.pause();
+
+
+                    if (playButton) {
+
+                        playButton.style.opacity =
+                            "1";
+
+                    }
+
+                }
+
+
+            }
+        );
+
+
+    });
+
+
+
+    /* =====================================
+       SCROLL REVEAL
+    ===================================== */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    const staggerElements =
+        document.querySelectorAll(
+            ".reveal-stagger"
+        );
+
+
+
+    const revealObserver =
+        new IntersectionObserver(
+            entries => {
+
+
+                entries.forEach(entry => {
+
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+
+                    }
+
+
+                });
+
+
+            },
+            {
+                threshold: 0.15
+            }
+        );
+
+
+
+    revealElements.forEach(
+        element => {
+
+            revealObserver.observe(
+                element
+            );
+
+        }
+    );
+
+
+
+    staggerElements.forEach(
+        element => {
+
+            revealObserver.observe(
+                element
+            );
+
+        }
+    );
+
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
