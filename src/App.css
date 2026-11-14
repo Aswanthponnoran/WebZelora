@@ -13,7 +13,7 @@
 
     /* >>> CHANGE THIS ONE VALUE TO CONTROL THE HERO VIDEO HEIGHT <<<
        75svh = three-quarters of the screen, 100svh = full screen, 600px = fixed height */
-    --hero-h: 120svh;
+    --hero-h: 106svh;
   }
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
