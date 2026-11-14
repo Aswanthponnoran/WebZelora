@@ -12,7 +12,7 @@ const PROJECTS = [
     title: 'Realtime Analytics API',
     text: 'FastAPI analytics with live WebSocket updates.',
     tags: 'FastAPI · Redis · Docker',
-    image: '/images/project-2.jpg',
+    image: '/images/im1.jpeg',
   },
   {
     title: 'Job Board SaaS',
