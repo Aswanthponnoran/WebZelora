@@ -3,27 +3,32 @@ import './App.css';
 
 const PROJECTS = [
   {
-    title: 'Inventory & Order Platform',
-    text: 'Django + React inventory management platform.',
-    tags: 'Django · PostgreSQL · React',
-    image: '/images/portt.jpg',
+    // title: 'Inventory & Order Platform',
+    // text: 'Django + React inventory management platform.',
+    // tags: 'Django · PostgreSQL · React',
+    image: '/images/abc.png',
   },
   {
-    title: 'Realtime Analytics API',
-    text: 'FastAPI analytics with live WebSocket updates.',
-    tags: 'FastAPI · Redis · Docker',
+    // title: 'Realtime Analytics API',
+    // text: 'FastAPI analytics with live WebSocket updates.',
+    // tags: 'FastAPI · Redis · Docker',
     image: '/images/im1.jpeg',
   },
   {
-    title: 'Job Board SaaS',
-    text: 'A modern multi-tenant job board platform.',
-    tags: 'Python · Django · React',
-    image: '/images/project-3.jpg',
+    // title: 'Job Board SaaS',
+    // text: 'A modern multi-tenant job board platform.',
+    // tags: 'Python · Django · React',
+    image: '/images/img2.png',
   },
 ];
 
 // Put your image in public/images/ and change the file name here
 const BG_IMAGE = '/images/projects-bg.jpg';
+
+// >>> Change ONLY these two numbers to resize the cards. Everything else follows. <<<
+const CARD_W = 480;
+const CARD_H = 580;
+const CARD_GAP = CARD_W * 0.72;   // distance between neighbouring cards
 
 export default function App() {
   const canvasRef = useRef(null);
@@ -46,15 +51,16 @@ export default function App() {
     if (offset > totalProjects / 2) offset -= totalProjects;
     if (offset < -totalProjects / 2) offset += totalProjects;
 
-    const x = offset * 230;
-    const z = offset === 0 ? 100 : -150;
+    const isActive = offset === 0;
+    const x = offset * CARD_GAP;
+    const z = isActive ? 0 : -150;      // translateZ on the front card upscales it through the perspective -> blurry
     const rotate = offset * -28;
-    const scale = offset === 0 ? 1 : 0.78;
+    const scale = isActive ? 1 : 0.85;
 
     return {
       transform: `translate(-50%, -50%) translateX(${x}px) translateZ(${z}px) rotateY(${rotate}deg) scale(${scale})`,
       opacity: Math.abs(offset) > 1 ? 0 : 1,
-      filter: offset === 0 ? 'brightness(1)' : 'brightness(.55)',
+      filter: isActive ? 'none' : 'brightness(.6)',
       zIndex: 10 - Math.abs(offset),
     };
   };
@@ -141,7 +147,9 @@ export default function App() {
 <header>
 <nav className="wrap">
 <div className="logo">
-<div className="mark">W</div>
+<div className="mark">
+  <img src="images/logo.png" alt="Web Zelora Logo" />
+</div>
 <div className="word">WEB <b>ZELORA</b><span className="tag">BUILD · MARKET · GROW</span></div>
 </div>
 <div className="navlinks">
@@ -157,12 +165,20 @@ export default function App() {
 </nav>
 </header>
 <section className="hero-section">
-<video className="hero-video" autoPlay muted loop playsInline preload="auto">
-<source src="/video/web_zelora_video.mp4" type="video/mp4" />
+<video
+  className="hero-video"
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+>
+  <source src="/video/webzeloralogo.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
 </video>
 <div className="hero-overlay"></div>
 <div className="hero-content">
-<h1>WEB ZELORA</h1>
+<h1 style={{ fontSize: "55px" }}>WEB ZELORA</h1>
 <p>We don't just build Websites, We build businesses.</p>
 <a href="#contact" className="hero-btn">Get Started</a>
 </div>
@@ -280,10 +296,10 @@ export default function App() {
 <div className="eyebrow">Our Impact</div>
 <h2>Numbers That Tell <b>Our Story</b></h2>
 </div>
-<div className="stat"><b data-target="50" data-suffix="+">0+</b><span>Happy Clients</span></div>
-<div className="stat"><b data-target="100" data-suffix="+">0+</b><span>Projects Completed</span></div>
-<div className="stat"><b data-target="5" data-suffix="+">0+</b><span>Years Experience</span></div>
-<div className="stat"><b data-target="98" data-suffix="%">0%</b><span>Client Satisfaction</span></div>
+<div className="stat"><b data-target="50" data-suffix="+">40+</b><span>Happy Clients</span></div>
+<div className="stat"><b data-target="100" data-suffix="+">40+</b><span>Projects Completed</span></div>
+<div className="stat"><b data-target="5" data-suffix="+">2+</b><span>Years Experience</span></div>
+<div className="stat"><b data-target="98" data-suffix="%">100%</b><span>Client Satisfaction</span></div>
 </div>
 </div>
 </section>
@@ -338,7 +354,7 @@ export default function App() {
 <h2>Recent <b>Projects</b></h2>
 <p>Take a look at some of our recent work. We design and develop websites that make an impact.</p>
 </div>
-<a href="#" className="btn btn-outline btn-sm">View All Projects
+<a href="https://github.com/Aswanthponnoran/" className="btn btn-outline btn-sm">View All Projects
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
 </a>
 </div>
@@ -363,46 +379,73 @@ export default function App() {
   className="projects-section"
   style={{
     // dark overlay on top of the image keeps the cards and text readable
-    backgroundImage: `linear-gradient(rgba(8, 13, 10, 0.8), rgba(8, 13, 10, 0.88)), url(${BG_IMAGE})`,
+    backgroundImage: `linear-gradient(rgba(69, 221, 132, 0.8), rgba(216, 224, 219, 0.88)), url(${BG_IMAGE})`,
+    position: 'relative',
+    overflowX: 'clip',
+    overflowY: 'visible',
+    zIndex: 1,
+    padding: '60px 0',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
   }}
 >
-<h2 className="section-title">Selected Projects</h2>
-
-<div className="carousel-3d">
-<button className="carousel-btn prev" onClick={prevProject} aria-label="Previous project">‹</button>
+ 
+<div className="carousel-3d" style={{ position: 'relative', width: '100%', height: `${CARD_H + 120}px`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+<button style={{ position: 'absolute', left: 20, top: '50%', transform: 'translateY(-50%)', zIndex: 20 }} className="carousel-btn prev" onClick={prevProject} aria-label="Previous project">‹</button>
 
 <div
   className="carousel-stage"
+  style={{ position: 'relative', width: '100%', maxWidth: '1200px', height: '100%', perspective: '1600px', overflow: 'visible' }}
   onMouseEnter={() => setPaused(true)}
   onMouseLeave={() => setPaused(false)}
 >
 {PROJECTS.map((project, index) => (
 <div
   className="project-card-3d"
-  key={project.title}
+  key={project.image}
+  // style={{
+  //   ...getCardStyle(index),
+  //   // dark overlay on top of the image keeps the text readable
+  //   backgroundImage: ` url(${project.image})`,
+  //   backgroundSize: 'cover',
+  //   backgroundPosition: 'center',
+  // }}
+
   style={{
-    ...getCardStyle(index),
-    // dark overlay on top of the image keeps the text readable
-    backgroundImage: `linear-gradient(rgba(8, 13, 10, 0.65), rgba(8, 13, 10, 0.85)), url(${project.image})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }}
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  width: `${CARD_W}px`,
+  height: `${CARD_H}px`,
+  maxWidth: '80vw',
+  padding: 0,
+  borderRadius: '18px',
+  overflow: 'hidden',
+  backfaceVisibility: 'hidden',
+  willChange: 'transform',
+  transition: 'transform .8s cubic-bezier(.22,1,.36,1), opacity .8s ease, filter .8s ease',
+  ...getCardStyle(index),
+}}
 >
-<span>{String(index + 1).padStart(2, '0')} / PROJECT</span>
+<img
+  src={project.image}
+  alt={project.title || `Project ${index + 1}`}
+  draggable="false"
+  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', imageRendering: 'auto' }}
+/>
+{/* <span>{String(index + 1).padStart(2, '0')} / PROJECT</span> */}
 <h3>{project.title}</h3>
 <p>{project.text}</p>
-<div className="project-tags">{project.tags}</div>
+{/* <div className="project-tags">{project.tags}</div> */}
 </div>
 ))}
 </div>
 
-<button className="carousel-btn next" onClick={nextProject} aria-label="Next project">›</button>
+<button style={{ position: 'absolute', right: 20, top: '50%', transform: 'translateY(-50%)', zIndex: 20 }} className="carousel-btn next" onClick={nextProject} aria-label="Next project">›</button>
 </div>
 
-<div className="carousel-indicators">
+{/* <div className="carousel-indicators">
 {PROJECTS.map((project, index) => (
 <span
   key={project.title}
@@ -410,7 +453,7 @@ export default function App() {
   onClick={() => setActiveIndex(index)}
 ></span>
 ))}
-</div>
+</div> */}
 </section>
 <section className="section" id="testimonials">
 <div className="wrap">
@@ -424,7 +467,7 @@ export default function App() {
 <div className="test-grid reveal-stagger">
 <div className="test-card">
 <p>"Web Zelora transformed our online presence. Our website looks amazing and we've seen a huge increase in traffic!"</p>
-<div className="test-who"><div className="avatar"></div><div><b>Anjali R.</b><span>Business Owner</span></div></div>
+<div className="test-who"><div className="avatar"></div><div><b>Ajal Dev.</b><span>Business Owner</span></div></div>
 </div>
 <div className="test-card">
 <p>"Their digital marketing strategy brought us quality leads and real growth. Highly recommended!"</p>
@@ -482,6 +525,7 @@ export default function App() {
 <circle cx="60" cy="60" r="34" fill="#0D1610" stroke="#1B241D" strokeWidth="1.5"></circle>
 <path d="M42 66l14 10 22-30" stroke="#39E75F" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path>
 </svg>
+
 <h1>Form</h1>
 <p>Send it over — we read every message and reply within one business day.</p>
 </div>
@@ -489,7 +533,7 @@ export default function App() {
 
 <footer className="page-footer">
 <div className="social-row">
-<a href="#" className="social-btn insta" aria-label="Instagram">
+<a href="https://www.instagram.com/web_zelora?obrf=MW9qOWc5aTVyajYxMw==" className="social-btn insta" aria-label="Instagram">
 <span className="bubble">Follow us!</span>
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect><circle cx="12" cy="12" r="3.6"></circle><circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"></circle></svg>
 </a>
@@ -497,10 +541,21 @@ export default function App() {
 <span className="bubble">Say hi 👋</span>
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 8h2V5h-2a4 4 0 00-4 4v2H9v3h2v6h3v-6h2.2l.8-3H14V9a1 1 0 011-1z"></path></svg>
 </a>
-<a href="#" className="social-btn twitter" aria-label="Twitter">
-<span className="bubble">Let's chat</span>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4l16 16M20 4L4 20"></path></svg>
-</a>
+<div className="social-container">
+
+  <a
+    href="https://wa.me/7511155341"
+    className="social-btn whatsapp"
+    aria-label="WhatsApp"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <i className="fab fa-whatsapp"></i>
+  </a>
+
+ 
+
+</div>
 </div>
 <p className="footer-note">© 2026 Web Zelora — say hello on any platform.</p>
 </footer>
@@ -515,12 +570,12 @@ export default function App() {
 <div className="foot-links">
 <a href="#">Home</a><a href="#services">Services</a><a href="#work">Portfolio</a><a href="#about">About</a><a href="#contact">Contact</a>
 </div>
-<div className="foot-social">
+{/* <div className="foot-social">
 <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 8h2V5h-2a4 4 0 00-4 4v2H9v3h2v6h3v-6h2.2l.8-3H14V9a1 1 0 011-1z"></path></svg></a>
 <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect><circle cx="12" cy="12" r="3.6"></circle><circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"></circle></svg></a>
 <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"></rect><path d="M8 10.5V17M8 7.5v.01M12 17v-4a2 2 0 014 0v4M12 13v4"></path></svg></a>
 <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2.5" y="6" width="19" height="12" rx="3"></rect><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"></path></svg></a>
-</div>
+</div> */}
 </div>
 <div className="foot-bottom">
 <span>© 2025 Web Zelora. All rights reserved.</span>
